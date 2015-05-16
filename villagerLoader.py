@@ -32,7 +32,7 @@ if config == None:
 	print "To use the default value, just press enter."
 	co = [["src", "Pack URL", "http://colin.reederhome.net/villagerPack2.txt"], ["dir", "Install Directory", "."]]
 	for o in co:
-		inp = raw_input(o[1]+" ["+o[2]+"]:")
+		inp = raw_input(o[1]+" ["+o[2]+"]: ")
 		if len(inp.strip())>0:
 			o[2] = inp
 	tw = ""
