@@ -34,7 +34,7 @@ if config == None:
 	for o in co:
 		inp = raw_input(o[1]+" ["+o[2]+"]:")
 		if len(inp.strip())>0:
-			co[2] = inp
+			o[2] = inp
 	tw = ""
 	for o in co:
 		tw+=o[0]+"]["+o[2]+"\n"
@@ -47,6 +47,8 @@ if config == None:
 url = config["src"][0]
 urllib.urlretrieve(url, dn+"/newThing.txt")
 nd = read(dn+"/newThing.txt")
+if not os.path.isdir(config["dir"][0]):
+	os.mkdir(config["dir"][0])
 ofn = dn+"/lastUpdated.txt"
 od = None
 if os.path.isfile(ofn):
