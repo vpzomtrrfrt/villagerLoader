@@ -61,9 +61,10 @@ if os.path.isfile(ofn):
 		else:
 			tr = True
 		if tr:
-			print "Removing "+od[d][0]
-			os.remove(config["dir"][0]+"/"+od[d][0])
-shutil.move(dn+"/newThing.txt", ofn)
+			ptr = config["dir"][0]+"/"+od[d][0]
+			if os.path.exists(ptr):
+				print "Removing "+od[d][0]
+				os.remove(ptr)
 dat1 = False
 for d in nd:
 	td = False
@@ -79,6 +80,11 @@ for d in nd:
 		print "Downloading "+nd[d][0]
 		dat1 = True
 		sys.stdout.flush()
-		urllib.urlretrieve(nd[d][1], config["dir"][0]+"/"+nd[d][0])
+		h = urllib2.urlopen(urllib2.Request(nd[d][1],None,{"User-Agent": "Not Chrome"}))
+		c = h.read()
+		h.close()
+		hw = open(config["dir"][0]+"/"+nd[d][0],'w+')
+		hw.write(c)
 if not dat1:
 	print "Up to date!"
+shutil.move(dn+"/newThing.txt", ofn)
