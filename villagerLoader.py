@@ -83,7 +83,7 @@ for d in nd:
 		h = urllib2.urlopen(urllib2.Request(nd[d][1],None,{"User-Agent": "Not Chrome"}))
 		c = h.read()
 		h.close()
-		hw = open(config["dir"][0]+"/"+nd[d][0],'w+')
+		hw = open(config["dir"][0]+"/"+nd[d][0],'wb+')
 		hw.write(c)
 if not dat1:
 	print "Up to date!"
