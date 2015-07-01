@@ -49,14 +49,25 @@ urllib.urlretrieve(url, dn+"/newThing.txt")
 nd = read(dn+"/newThing.txt")
 if not os.path.isdir(config["dir"][0]):
 	os.mkdir(config["dir"][0])
+odfn = dn+"/lud.txt"
+dfn = dn+"/disabled.txt"
+dd = {}
+odd = {}
+if os.path.isfile(dfn):
+	dd = read(dfn)
+if os.path.isfile(odfn):
+	odd = read(odfn)
 ofn = dn+"/lastUpdated.txt"
 od = None
+dat1 = False
 if os.path.isfile(ofn):
 	od = read(ofn)
 	for d in od:
 		tr = False
 		if d in nd:
 			if nd[d] != od[d]:
+				tr = True
+			elif d in dd:
 				tr = True
 		else:
 			tr = True
@@ -65,7 +76,7 @@ if os.path.isfile(ofn):
 			if os.path.exists(ptr):
 				print "Removing "+od[d][0]
 				os.remove(ptr)
-dat1 = False
+				dat1 = True
 for d in nd:
 	td = False
 	if od != None:
@@ -75,6 +86,10 @@ for d in nd:
 			if od[d] != nd[d]:
 				td = True
 	else:
+		td = True
+	if d in dd:
+		td = False
+	elif d in odd:
 		td = True
 	if td:
 		print "Downloading "+nd[d][0]
@@ -88,3 +103,7 @@ for d in nd:
 if not dat1:
 	print "Up to date!"
 shutil.move(dn+"/newThing.txt", ofn)
+if os.path.exists(dfn):
+	shutil.copy(dfn, odfn)
+elif os.path.exists(odfn):
+	os.remove(odfn)
