@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 import os
 import urllib2
 import urllib
